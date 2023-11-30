@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <script defer src="./assets/js/script.js"></script>
+</head>
+<body>
+    <header class="bg-primary" data-bs-theme="dark">
+        <h1 class="text-center">Weather Dashboard</h1>
+    </header>
+    <div class="d-flex flex-column flex-shrink-0 p-2 bg-light" style="width: 280px;">
+        <form>
+            <fieldset class="d-grid gap-2">
+                <fieldset class="form-group">
+                    <legend>Search for a City:</legend>
+                    <input type="search" class="form-control" id="city-search-input" placeholder="City">
+                </fieldset>
+                <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+            </fieldset>
+          </form>
+          <hr>
+          <div id="search-history" class="d-grid gap-2"></div>
+    </div>
+</body>
+</html>
