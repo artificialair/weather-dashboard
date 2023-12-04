@@ -11,7 +11,8 @@
     <header class="bg-primary" data-bs-theme="dark">
         <h1 class="text-center">Weather Dashboard</h1>
     </header>
-    <div class="d-flex flex-column flex-shrink-0 p-2 bg-light" style="width: 280px;">
+    <div class="d-inline-block" style="width: 20%;">
+    <div class="d-flex flex-column flex-shrink-0 p-2 bg-light">
         <form>
             <fieldset class="d-grid gap-2">
                 <fieldset class="form-group">
@@ -24,5 +25,8 @@
           <hr>
           <div id="search-history" class="d-grid gap-2"></div>
     </div>
+    </div>
+    <div id="current-weather" class="d-inline-block card p-4" style="width: 60%; visibility:hidden;"></div>
+  </div>
 </body>
 </html>
