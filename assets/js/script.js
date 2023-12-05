@@ -1,7 +1,7 @@
-const searchField = document.querySelector("#city-search-input");
+// Storing references to all documents used in the program
+const searchField = document.querySelector("#search-bar");
 const searchButton = document.querySelector("#search-button");
-const searchHistoryArea = document.getElementById("search-history");
-
+const searchHistoryArea = document.querySelector("#search-history");
 const currentWeather = document.querySelector("#current-weather");
 const weatherForecast = document.querySelector("#forecast-area");
 
@@ -14,28 +14,40 @@ searchButton.addEventListener("click", function(event) {
     searchField.value = null;
 
     searchCity(cityToSearch);
-    addToSearchHistory(cityToSearch)
 })
 
+// Gets city name and displays both the current weather and the forecast
 function searchCity(city) {
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=22fa3b502b403d0e2655dc61be08aa70&units=imperial")
     .then(response => response.json())
     .then(json => {
-        if (json.cod == 200) displayCurrentWeather(json)
+        // This will only run if the response is successful
+        if (json.cod == 200) {
+            searchField.className = "form-control";
+            displayCurrentWeather(json);
+            addToSearchHistory(city);
+        } else {
+            searchField.className = "form-control is-invalid";
+        }
     })
 
     fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=22fa3b502b403d0e2655dc61be08aa70&units=imperial")
     .then(response => response.json())
     .then(json => {
-        if (json.cod == 200) handleForecast(json.list);
+        if (json.cod == 200) {
+            handleForecast(json.list);
+        }
     })
 }
 
+// Adds a query to the search history and saves it to local storage
 function addToSearchHistory(query) {
+    // If the query is already in the search history, it is moved up to the top
     if (searchHistory.includes(query)) {
         searchHistory.splice(searchHistory.indexOf(query), 1)
     }
     searchHistory.push(query)
+    // For neatness purposes, the search history cannot be longer than 8
     if (searchHistory.length > 8) {
         searchHistory.splice(0, 1);
     }
@@ -43,6 +55,7 @@ function addToSearchHistory(query) {
     displaySearchHistory();
 }
 
+// Refreshes the search history area
 function displaySearchHistory() {
     searchHistoryArea.innerHTML = null
     for (var query of searchHistory) {
@@ -54,7 +67,7 @@ function displaySearchHistory() {
     }
 }
 
-// Convert Weather API response into document elements
+// Convert Weather API response into document elements and displays them
 function displayCurrentWeather(result) {
     var header = document.createElement("h3");
     var weatherIcon = document.createElement("img");
@@ -75,6 +88,7 @@ function displayCurrentWeather(result) {
     currentWeather.setAttribute("style", "visibility:visible;")
 }
 
+// Convert simplified Weather API response into cards and displays them
 function displayWeatherForecast(results) {
     var title = document.createElement("h4");
     title.innerHTML = "5-Day Forecast"
@@ -117,20 +131,23 @@ function displayWeatherForecast(results) {
     weatherForecast.setAttribute("style", "visibility:visible;")
 }
 
+// Shortens Weather API response to only 1 result per day
 function handleForecast(result) {   
     var todayDate = dayjs().date()
     var dailyForecasts = {};
     for (var forecast of result) {
         var date = dayjs.unix(forecast.dt).date();
-        if (date in dailyForecasts || date === todayDate || forecast.sys.pod === "n") {
-            continue
-        } else {
-            dailyForecasts[date] = forecast
-        };
+        if (date in dailyForecasts) continue;
+        if (date === todayDate) continue;
+        // Skipping any forecasts for night-time hours
+        if (forecast.sys.pod === "n") continue;
+
+        dailyForecasts[date] = forecast
     }
     displayWeatherForecast(dailyForecasts)
 }
 
+// Gets search history from local storage
 function init() {
     searchHistory = JSON.parse(localStorage.getItem("search-history"))
     if (searchHistory === null) searchHistory = []
