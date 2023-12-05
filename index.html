@@ -5,28 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <script defer src="./assets/js/script.js"></script>
 </head>
 <body>
-    <header class="bg-primary" data-bs-theme="dark">
+    <header class="text-white bg-primary p-2" data-bs-theme="dark">
         <h1 class="text-center">Weather Dashboard</h1>
     </header>
-    <div class="d-inline-block" style="width: 20%;">
-    <div class="d-flex flex-column flex-shrink-0 p-2 bg-light">
-        <form>
-            <fieldset class="d-grid gap-2">
-                <fieldset class="form-group">
-                    <legend>Search for a City:</legend>
-                    <input type="search" class="form-control" id="city-search-input" placeholder="City">
+    <div class="d-inline-block align-top" style="width: 20%;">
+        <div class="d-flex flex-column flex-shrink-0 p-2 bg-light">
+            <form>
+                <fieldset class="d-grid gap-2">
+                    <fieldset class="form-group">
+                        <legend>Search for a City:</legend>
+                        <input type="search" class="form-control" id="city-search-input" placeholder="City">
+                    </fieldset>
+                    <button type="submit" id="search-button" class="btn btn-primary">Search</button>
                 </fieldset>
-                <button type="submit" id="search-button" class="btn btn-primary">Search</button>
-            </fieldset>
-          </form>
-          <hr>
-          <div id="search-history" class="d-grid gap-2"></div>
+            </form>
+            <hr>
+            <div id="search-history" class="d-grid gap-2"></div>
+        </div>
     </div>
+    <div class="d-inline-block" style="width: 60%; visibility:hidden;">
+        <div id="current-weather" class="card p-4"></div>
+        <div id="forecast-area" class="card p-4" style="visibility:hidden;"></div>
     </div>
-    <div id="current-weather" class="d-inline-block card p-4" style="width: 60%; visibility:hidden;"></div>
-  </div>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+    crossorigin="anonymous"></script>
+    <script defer src="./assets/js/script.js"></script>
 </body>
 </html>
