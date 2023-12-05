@@ -2,7 +2,7 @@
 
 ## Description
 
-This project allows you to check a 5-day weather forecast in an inputted city.  This was made possible thanks to the ![OpenWeather API](https://openweathermap.org/api).
+This project allows you to check a 5-day weather forecast in an inputted city.  This was made possible thanks to the [OpenWeather API](https://openweathermap.org/api).
 
 ## Installation
 
